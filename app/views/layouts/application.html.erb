@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deviseproject</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  	<div>
+  		<% if user_signed_in? %>
+  		<p><%= current_user.email %></p>
+  		<p><%= link_to "Sign Out", destroy_user_session_path, method: :delete  %></p>
+  		<% end %>
+  	</div>
+
+
+    <%= yield %>
+  </body>
+</html>
