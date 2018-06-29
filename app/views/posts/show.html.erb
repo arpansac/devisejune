@@ -14,6 +14,40 @@
   <strong>User:</strong>
   <%= @post.user_id %>
 </p>
+<div>
+	<% if user_signed_in? %>
+	<%= form_for @comment do |f| %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
+		<%= f.label :content %>
+		<%= f.text_area :content %>
+
+		<%= f.hidden_field :post_id, value: @post.id %>
+
+		<%= f.submit %>
+	<% end %>
+	<% end %>
+</div>
+<ul>
+	<% @post.comments.reverse.each do |comment| %>
+	<li><%= comment.content %></li>
+	<% end %>
+</ul>
+
+<% if user_signed_in? && current_user.id == @post.user_id %>
+<%= link_to 'Edit', edit_post_path(@post) %>
+ |
+<% end %>
+
 <%= link_to 'Back', posts_path %>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
+  before_action :authorization, only: [:edit, :update, :destroy]
+
 
   # GET /posts
   # GET /posts.json
@@ -12,6 +14,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comment = Comment.new
   end
 
   # GET /posts/new
@@ -75,7 +78,9 @@ class PostsController < ApplicationController
     end
 
     def authorization
-
+      if current_user.id != @post.user_id
+        redirect_to root_path
+      end
     end
 
 end
